@@ -16,7 +16,7 @@ manual event input
 
 Storage, SQL, connectors, and distributed execution come after this vertical slice works.
 
-## PR 1: Core types and in-memory materialized view
+## PR 1: Core types and in-memory materialized view — implemented
 
 ### Focus
 
@@ -56,7 +56,7 @@ A test can:
 3. insert two events for the same user;
 4. read `user_spend[user_id]` and see the sum update incrementally.
 
-## PR 2: Executor pipeline
+## PR 2: Executor pipeline — next
 
 ### Focus
 
