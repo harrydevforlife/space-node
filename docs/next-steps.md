@@ -56,7 +56,7 @@ A test can:
 3. insert two events for the same user;
 4. read `user_spend[user_id]` and see the sum update incrementally.
 
-## PR 2: Executor pipeline — next
+## PR 2: Executor pipeline — implemented
 
 ### Focus
 
@@ -81,7 +81,7 @@ The same aggregate test is expressed as:
 Source -> Filter -> HashAggregate -> Materialize
 ```
 
-## PR 3: Epochs and barriers
+## PR 3: Epochs and barriers — next
 
 ### Focus
 

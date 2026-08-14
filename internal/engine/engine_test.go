@@ -76,3 +76,36 @@ func TestViewRowsAreReturnedAsCopies(t *testing.T) {
 		t.Fatalf("stored row was mutated through returned copy: got %v", got)
 	}
 }
+
+func TestSumViewFilterUsesExecutorPipeline(t *testing.T) {
+	db := engine.New()
+	if err := db.CreateStream("orders", types.Schema{Columns: []types.Column{{Name: "user_id", Type: types.IntType}, {Name: "amount", Type: types.FloatType}}}); err != nil {
+		t.Fatal(err)
+	}
+	if err := db.CreateSumView(engine.SumViewSpec{
+		Name:     "positive_user_spend",
+		Source:   "orders",
+		GroupKey: "user_id",
+		SumField: "amount",
+		Filter: func(row types.Row) bool {
+			return row["amount"].(float64) > 0
+		},
+	}); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := db.Insert(1, "orders", types.Row{"user_id": 1, "amount": 10.0}); err != nil {
+		t.Fatal(err)
+	}
+	if err := db.Insert(2, "orders", types.Row{"user_id": 1, "amount": -7.0}); err != nil {
+		t.Fatal(err)
+	}
+
+	row, ok := db.GetViewRow("positive_user_spend", "1")
+	if !ok {
+		t.Fatal("expected row")
+	}
+	if got := row["sum_amount"]; got != 10.0 {
+		t.Fatalf("filtered sum_amount = %v, want 10", got)
+	}
+}

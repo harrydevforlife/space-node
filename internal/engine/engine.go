@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"context"
 	"fmt"
 	"sync"
 
@@ -72,8 +73,9 @@ func (e *Engine) Insert(epoch uint64, stream string, row types.Row) error {
 	}
 	e.mu.RUnlock()
 
+	ctx := context.Background()
 	for _, view := range views {
-		if err := view.apply(change); err != nil {
+		if err := view.pipeline.Process(ctx, change); err != nil {
 			return err
 		}
 	}

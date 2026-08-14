@@ -31,12 +31,20 @@ From the repository root:
 go test ./...
 ```
 
-This runs every package test. At the current stage, the main coverage is in `internal/engine`.
+This runs every package test. At the current stage, the main coverage is in `internal/engine` and `internal/executor`.
 
-## Run only the engine tests
+## Run focused package tests
+
+Run only the engine tests:
 
 ```bash
 go test ./internal/engine
+```
+
+Run only the executor pipeline tests:
+
+```bash
+go test ./internal/executor
 ```
 
 Use verbose output when you want to see individual test names:
@@ -128,4 +136,4 @@ These features are intentionally not available yet:
 - disk-backed `streamstore`;
 - connectors.
 
-The next implementation step is PR 2 from `docs/next-steps.md`: replace the hard-coded materialized view path with an executor pipeline.
+The next implementation step is PR 3 from `docs/next-steps.md`: add message/barrier support and checkpoint-oriented epoch flow.

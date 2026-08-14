@@ -12,3 +12,5 @@ Next steps are tracked in [`docs/next-steps.md`](docs/next-steps.md).
 ## Running and testing
 
 See [`docs/run-and-test.md`](docs/run-and-test.md) for the current commands to format, test, and exercise the in-memory PR 1 library flow.
+
+The PR 2 executor pipeline diagrams are in [`docs/pr2-executor-diagrams.md`](docs/pr2-executor-diagrams.md).
